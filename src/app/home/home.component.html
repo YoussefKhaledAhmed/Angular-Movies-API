@@ -1,1 +1,7 @@
-<p>home works!</p>
+<div class="flex overflow-scroll">
+@for (item of homeMovies; track $index) {
+    <div class="w-1/4 shrink-0">
+        <app-card [movie]="item"></app-card>
+    </div>
+}
+</div>

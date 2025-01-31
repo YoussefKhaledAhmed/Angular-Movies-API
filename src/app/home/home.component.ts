@@ -1,19 +1,24 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Movie } from '../interfaces/movie.interface';
 import { DiscoverService } from '../services/discover.service';
 import { Subscription } from 'rxjs';
+import { CardComponent } from '../card/card.component';
+
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
   private homeMoviesService = inject(DiscoverService);
-  private homeMovies !: Movie[];
+  public homeMovies !: Movie[];
   private subscription !: Subscription;
+
+  
+
   ngOnInit():void{
     this.subscription = this.homeMoviesService.getDiscoverMovies().subscribe({
       next: (res) =>{
@@ -21,9 +26,6 @@ export class HomeComponent {
       },
       error: (err) =>{
         console.log(err);
-      },
-      complete: () =>{
-        console.log("complete");
       }
     });
   }
